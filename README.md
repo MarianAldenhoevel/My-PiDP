@@ -1,6 +1,12 @@
 # My-PiDP
 Stuff I create or collect while playing with my PiDP-11
 
+The PiDP-11 is a modern replica of the PDP-11/70 computer in 6:10 scale. It is powered by a Raspberry Pi, unbelievably pretty and a ton of nerdy fun.
+
+[PiDP-11 homepage](https://obsolescence.wixsite.com/obsolescence/pidp-11)
+
+Find here:
+
 * [PDP-11 Programming Card](#pdp-11-programming-card)
 * [License](#license)
 
