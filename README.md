@@ -10,11 +10,13 @@ Anything here that is my original work is licensed under the Creative Commons CC
 
 The Programming Card is a quick reference for programming the machine. It includes a list of opcodes and listings for various versions of bootstrap loader code.
 
+![Image of printed Programming Card](Programming Card.jpg)
+
 There are numerous scans of the original on the web. I have taken one published by Flickr-User Endogan and put it into a PDF ready for printing. My PDF is laid out for A4 paper and you can duplex-print two pages, take an exacto-knife to it, tape two parts together and fold it. I do not know the original dimensions and do not really care. After all my computer is not full size either.
 
 ## License
 
-![grafik](https://user-images.githubusercontent.com/18619449/112669808-6a846c00-8e60-11eb-8e8c-fbc91c85426a.png)
+![License logo](by-sa.png)
 
 This means you are free to share and adapt.
  
