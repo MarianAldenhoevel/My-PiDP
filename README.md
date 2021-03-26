@@ -20,10 +20,10 @@ There are numerous scans of the original on the web. I have taken one published 
 
 I do not know the original dimensions and do not really care. After all my PDP-11 is not full size either.
 
-The download is provided in PDF format and as the ODF which I created in Libre Office Draw.
+The download is provided in PDF format and as the ODG file which I created in Libre Office Draw.
 
 * [programming_card.pdf](programming_card.pdf)
-* [programming_card.odf](programming_card.odf)
+* [programming_card.odg](programming_card.odg)
 
 ## License
 
