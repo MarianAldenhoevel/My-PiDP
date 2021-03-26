@@ -14,9 +14,9 @@ Find here:
 
 The Programming Card is a quick reference for programming the machine. It includes a list of opcodes and listings for various versions of bootstrap loader code.
 
-<img src="programming_card.jpg" height="50%" width="50%"/>
+There are numerous scans of the original on the web. I have taken one published by Flickr-User [Endogan](https://www.flickr.com/photos/24989276@N00/albums/72157613479397758) and put it into a PDF ready for printing. My PDF is laid out for A4 paper and you can duplex-print two pages, take an exacto-knife to it, tape two parts together and fold it:
 
-There are numerous scans of the original on the web. I have taken one published by Flickr-User [Endogan](https://www.flickr.com/photos/24989276@N00/albums/72157613479397758) and put it into a PDF ready for printing. My PDF is laid out for A4 paper and you can duplex-print two pages, take an exacto-knife to it, tape two parts together and fold it. 
+<img src="programming_card.jpg" height="50%" width="50%"/>
 
 I do not know the original dimensions and do not really care. After all my PDP-11 is not full size either.
 
