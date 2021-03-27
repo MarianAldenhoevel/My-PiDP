@@ -97,6 +97,15 @@ def parse_commandline():
         metavar = 'html-color'
     )
 
+    parser.add_argument('-orh', '--only-render-holes',
+        action = 'store',
+        default = False,
+        type = str2bool,
+        help = 'Only render holes, not space for holes. This is useful if you want to post-process the SVG (default: %(default))',
+        dest = 'onlyrenderholes',
+        metavar = 'flag'
+    )
+
     parser.add_argument('-os', '--open-svg',
         action = 'store',
         default = True,
@@ -197,11 +206,12 @@ def writeSVGDrawByte(data):
             else:   
                 fill = options.tapecolor
 
-            options.outputfile.write(options.indent + '<circle cx="{cx:.3f}in" cy="{cy:.3f}in" r="0.036in" fill="{fill}"/>\n'.format(
-                cx=cx,
-                cy=options.y,
-                fill=fill
-            ))
+            if ((options.onlyrenderholes == True) and (bit)) or (options.onlyrenderholes == False):
+                options.outputfile.write(options.indent + '<circle cx="{cx:.3f}in" cy="{cy:.3f}in" r="0.036in" fill="{fill}"/>\n'.format(
+                    cx=cx,
+                    cy=options.y,
+                    fill=fill
+                ))
 
             cx -= 0.1
 
@@ -224,6 +234,8 @@ def writeSVGDrawData():
 
     global options
 
+    logger = logging.getLogger('main')
+    
     bytecount = 0    
 
     inputfile = open(options.inputfilename, 'rb')
