@@ -8,6 +8,7 @@ The PiDP-11 is a modern replica of the PDP-11/70 computer in 6:10 scale. It is p
 Find here:
 
 * [PDP-11 Programming Card](#pdp-11-programming-card)
+* [Tape2SVG](#tape-to-svg)
 * [License](#license)
 
 ## PDP-11 Programming Card
@@ -24,6 +25,18 @@ The download is provided in PDF format and as the ODG file which I created in Li
 
 * [programming_card.pdf](programming_card.pdf)
 * [programming_card.odg](programming_card.odg)
+
+## Tape To SVG
+
+tape2svg.py is a little program that takes binary data from a file and "punches" a tape from it in the form of a SVG file. This file can then be viewed in a browser or printed out.
+
+I do not have actual paper tape nor a punch and I am to stingy to buy an "antique". So I thought I'd fake them.
+
+The code is in a single python file with some very standard dependencies. There is nothing special about it and nothing clever. It just spits out text that can be read as SVG.
+
+One nice feature is that it can also punch text to label tapes:
+
+<img src="tape2svg/PiDP-11.png"/>
 
 ## License
 
