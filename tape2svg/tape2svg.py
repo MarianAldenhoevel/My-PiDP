@@ -407,14 +407,14 @@ def writeSVGDrawTape():
                         y2 = bottom
                     ))
 
-                    options.outputfile.write(options.indent + '<text stroke="none" fill="blue" font-size="10pt" font-family="sans-serif" transform="translate({left}, {top}) rotate(90)">D I G I T A L   E Q U I P M E N T   C O R P O R A T I O N   -   P R O G R A M M E D   D A T A    P R O C E S S O R</text>\n'.format(
+                    options.outputfile.write(options.indent + '<text stroke="none" fill="blue" letter-spacing="0.5em" font-size="10pt" font-family="sans-serif" transform="translate({left}, {top}) rotate(90)">DIGITAL EQUIPMENT CORPORATION - PROGRAMMED DATA PROCESSOR</text>\n'.format(
                         left = 96 * (options.x + options.tapewidth - 0.2),
                         top = 96 * (markerpos + options.margintop + 0.5)
                     ))
 
                     options.outputfile.write(options.indent + '<text stroke="blue" stroke-width="2px" fill="none" font-size="44pt" font-family="sans-serif" transform="translate({left}, {top}) rotate(90)">PDP</text>\n'.format(
                         left = 96 * (options.x + 0.15),
-                        top = 96 * (markerpos + options.margintop + 3.5)
+                        top = 96 * (markerpos + options.margintop + 4.5)
                     ))
                 finally:
                     options.indent = unindent(options.indent)
