@@ -34,7 +34,7 @@ I do not have actual paper tape nor a punch and I am way too stingy to buy an "a
 
 The code is in a single python file with some very standard dependencies. There is nothing special about it and nothing clever. It just spits out text that can be read as SVG.
 
-One nice feature is that it can also punch text to label tapes so you can create stickers or nametags as souvenirs:
+One nice feature is that it can also punch text to label tapes so you can create stickers or nametags as souvenirs. You can specify text directly and use one of two bitmapped fonts:
 
 <img src="tape2svg/PiDP-11.4x5.png"/>
 
