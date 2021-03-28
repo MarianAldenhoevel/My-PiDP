@@ -31,7 +31,7 @@ def parse_commandline():
 
     parser.add_argument('-ll', '--log-level',
         action = 'store',
-        default = 'DEBUG',
+        default = 'INFO',
         help ='Set the logging output level to CRITICAL, ERROR, WARNING, INFO or DEBUG (default: %(default)s)',
         dest ='log_level',
         metavar = 'level'
@@ -47,8 +47,8 @@ def parse_commandline():
 
     parser.add_argument('-of', '--output-file',
         action = 'store',
-        default = 'output.svg',
-        help = 'Output file for the SVG data, for multiple pages a numerical suffix is added (default: %(default)s)',
+        default = '',
+        help = 'Output file for the SVG data, for multiple pages a numerical suffix is added (default: input file with SVG extension or output.svg)',
         dest = 'outputfilename',
         metavar = 'filename'
     )
@@ -56,6 +56,7 @@ def parse_commandline():
     parser.add_argument('-bc', '--bit-count',
         action = 'store',
         default = 8,
+        type = int,
         help = 'How many bits in the tape, supported values are 5,7 and 8 (default: %(default)s)',
         dest = 'bitcount',
         metavar = 'num'
@@ -64,6 +65,7 @@ def parse_commandline():
     parser.add_argument('-li', '--lead-in',
         action = 'store',
         default = 10,
+        type = int,
         help = 'How many rows of lead-in should we "punch" (default: %(default)s)',
         dest = 'leadin',
         metavar = 'num'
@@ -72,6 +74,7 @@ def parse_commandline():
     parser.add_argument('-lo', '--lead-out',
         action = 'store',
         default = 10,
+        type = int,
         help = 'How many rows of lead-out should we "punch" (default: %(default)s)',
         dest = 'leadout',
         metavar = 'num'
@@ -212,6 +215,16 @@ def parse_commandline():
 
     options = parser.parse_args()
     options.log_level_int = getattr(logging, options.log_level, logging.INFO)
+
+    # Create output file name
+    if not options.outputfilename:
+        if options.inputfilename:
+            (basename, ext) = os.path.splitext(options.inputfilename)
+            options.outputfilename = basename + '.svg'
+            if options.outputfilename == options.inputfilename:
+                options.outputfilename += '.svg'
+        else:
+            options.outputfilename = 'output.svg'
 
     # The two most common widths were 11/16 inch (17.46 mm) for five bit codes,
     # and 1 inch (25.4 mm) for tapes with six or more bits.
@@ -407,15 +420,16 @@ def writeSVGDrawTape():
                         y2 = bottom
                     ))
 
-                    options.outputfile.write(options.indent + '<text stroke="none" fill="blue" letter-spacing="0.5em" font-size="10pt" font-family="sans-serif" transform="translate({left}, {top}) rotate(90)">DIGITAL EQUIPMENT CORPORATION - PROGRAMMED DATA PROCESSOR</text>\n'.format(
-                        left = 96 * (options.x + options.tapewidth - 0.2),
-                        top = 96 * (markerpos + options.margintop + 0.5)
-                    ))
+                    if not options.reverse:
+                        options.outputfile.write(options.indent + '<text stroke="none" fill="blue" letter-spacing="0.5em" font-size="10pt" font-family="sans-serif" transform="translate({left}, {top}) rotate(90)">DIGITAL EQUIPMENT CORPORATION - PROGRAMMED DATA PROCESSOR</text>\n'.format(
+                            left = 96 * (options.x + options.tapewidth - 0.2),
+                            top = 96 * (markerpos + options.margintop + 0.5)
+                        ))
 
-                    options.outputfile.write(options.indent + '<text stroke="blue" stroke-width="2px" fill="none" font-size="44pt" font-family="sans-serif" transform="translate({left}, {top}) rotate(90)">PDP</text>\n'.format(
-                        left = 96 * (options.x + 0.15),
-                        top = 96 * (markerpos + options.margintop + 4.5)
-                    ))
+                        options.outputfile.write(options.indent + '<text stroke="blue" stroke-width="2px" fill="none" font-size="44pt" font-family="sans-serif" transform="translate({left}, {top}) rotate(90)">PDP</text>\n'.format(
+                            left = 96 * (options.x + 0.15),
+                            top = 96 * (markerpos + options.margintop + 4.5)
+                        ))
                 finally:
                     options.indent = unindent(options.indent)
 
