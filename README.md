@@ -30,13 +30,15 @@ The download is provided in PDF format and as the ODG file which I created in Li
 
 tape2svg.py is a little program that takes binary data from a file and "punches" a tape from it in the form of a SVG file. This file can then be viewed in a browser or printed out.
 
-I do not have actual paper tape nor a punch and I am to stingy to buy an "antique". So I thought I'd fake them.
+I do not have actual paper tape nor a punch and I am way too stingy to buy an "antique". So I thought I'd fake them.
 
 The code is in a single python file with some very standard dependencies. There is nothing special about it and nothing clever. It just spits out text that can be read as SVG.
 
-One nice feature is that it can also punch text to label tapes:
+One nice feature is that it can also punch text to label tapes so you can create stickers or nametags as souvenirs:
 
-<img src="tape2svg/PiDP-11.png"/>
+<img src="tape2svg/PiDP-11.4x5.png"/>
+
+<img src="tape2svg/PiDP-11.8x8.png"/>
 
 ## License
 
