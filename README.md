@@ -49,5 +49,5 @@ Anything here that is my original work is licensed under the Creative Commons CC
 In ultra brief terms this means you are free to share and adapt.
  
 Where I used other people's work I have credited them to the best of my knowledge. If you feel left out please tell me, so I can fix that. 
- 
+
 The nature of the project entails that some material may legally be copyrighted by major third parties. I firmly believe that it is long past any commercial value and hope that nobody feels damaged. Should I be wrong about that and you are the holder of such copyright please don't be mad and tell me nicely.
