@@ -85,6 +85,14 @@ def parse_commandline():
         metavar = 'string'
     )
 
+    parser.add_argument('-fn', '--font-name',
+        action = 'store',
+        default = '4x5',
+        help = 'Select the font to be used when punching text. Supported values are ''4x5'' and ''8x8'' (default: %(default)s)',
+        dest = 'fontname',
+        metavar = 'fontname'
+    )
+
     parser.add_argument('-cm', '--cut-marks',
         action = 'store',
         default = True,
@@ -201,7 +209,6 @@ def parse_commandline():
         dest = 'pdffilename',
         metavar = 'filename'
     )
-
 
     options = parser.parse_args()
     options.log_level_int = getattr(logging, options.log_level, logging.INFO)
@@ -607,6 +614,52 @@ def writeSVGComment(comment):
 
     options.outputfile.write(options.indent + '<!-- ' + comment + ' -->\n')
 
+def writeSVGDrawPunchString8x8(string):
+
+    global options
+
+    fontdata = font.font8x8_basic
+
+    for char in string:
+        if ord(char) < len(fontdata):
+            glyph = fontdata[ord(char)]
+            
+            # Skip characters we don't have glyphs for, but not the space
+            if (char==' ') or (sum(glyph) != 0):
+                # We want to punch 8 rows, the first one with all the
+                # LSBs from each entry in the glyph. The second with
+                # second-LSB etc.. This turns the glyph on it's side.
+                for glyphcolumn in range(0,8):
+                    colbitmask = 1 << glyphcolumn
+                    
+                    byte = 0
+                    bit = 1
+                    for g in glyph:
+                        bitset = (g & colbitmask)
+                        if bitset:
+                            byte = byte | bit
+                        bit *= 2
+                        
+                    writeSVGDrawByte(byte) 
+
+def writeSVGDrawPunchString4x5(string):
+
+    global options
+
+    fontdata = font.font4x5
+
+    for char in string.upper():
+        if ord(char) < len(fontdata):
+            glyph = fontdata[ord(char)]
+            
+            # Skip characters we don't have glyphs for, but not the space
+            if (char==' ') or (sum(glyph) != 0):
+                for b in glyph:
+                    # Reverse bits
+                    b = int('{:08b}'.format(b)[::-1], 2)
+                    writeSVGDrawByte(b)
+                writeSVGDrawByte(0)
+
 def writeSVGDrawPunchString(string):
 
     global options
@@ -618,29 +671,12 @@ def writeSVGDrawPunchString(string):
     options.indent = indent(options.indent)
     
     try:
-        fontdata = font.font8x8_basic
-
-        for char in string:
-            if ord(char) < len(fontdata):
-                glyph = fontdata[ord(char)]
-                
-                # Skip characters we don't have glyphs for, but not the space
-                if (char==' ') or (sum(glyph) != 0):
-                    # We want to punch 8 rows, the first one with all the
-                    # LSBs from each entry in the glyph. The second with
-                    # second-LSB etc.. This turns the glyph on it's side.
-                    for glyphcolumn in range(0,8):
-                        colbitmask = 1 << glyphcolumn
-                        
-                        byte = 0
-                        bit = 1
-                        for g in glyph:
-                            bitset = (g & colbitmask)
-                            if bitset:
-                                byte = byte | bit
-                            bit *= 2
-                            
-                        writeSVGDrawByte(byte) 
+        if options.fontname == '8x8':
+            writeSVGDrawPunchString8x8(string)
+        elif options.fontname == '4x5':
+            writeSVGDrawPunchString4x5(string)
+        else:
+            raise ValueError('Font name ''{fontname}'' not supported.'.format(fontname = options.fontname))
     
     finally:
         options.indent = unindent(options.indent)
@@ -725,7 +761,12 @@ def createpages(reverse):
 
     if options.punchtitle:
         if options.punchtitle:
-            options.tapelength += 8 * len(options.punchtitle) * 0.1
+            if options.fontname == '8x8':
+                options.tapelength += 8 * len(options.punchtitle) * 0.1
+            elif options.fontname == '4x5':
+                options.tapelength += 5 * len(options.punchtitle) * 0.1
+            else:
+                raise ValueError('Font name ''{fontname}'' not supported.'.format(fontname = options.fontname))
 
     options.tapelength += options.leadout * 0.1
 
