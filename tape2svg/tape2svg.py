@@ -24,7 +24,6 @@ def str2bool(v):
 def parse_commandline():
 
     global options
-    global challenges_found
 
     parser = argparse.ArgumentParser(
         description = 'Create a SVG image of a computer paper tape from binary data.', 
@@ -41,7 +40,7 @@ def parse_commandline():
     parser.add_argument('-if', '--input-file',
         action = 'store',
         default = '',
-        help = 'Filename to read the input data from (default: %(default))',
+        help = 'Filename to read the input data from (default: %(default)s)',
         dest = 'inputfilename',
         metavar = 'filename'
     )
@@ -49,7 +48,7 @@ def parse_commandline():
     parser.add_argument('-of', '--output-file',
         action = 'store',
         default = 'output.svg',
-        help = 'Output file for the SVG data, for multiple pages a numerical suffix is added (default: %(default))',
+        help = 'Output file for the SVG data, for multiple pages a numerical suffix is added (default: %(default)s)',
         dest = 'outputfilename',
         metavar = 'filename'
     )
@@ -57,7 +56,7 @@ def parse_commandline():
     parser.add_argument('-bc', '--bit-count',
         action = 'store',
         default = 8,
-        help = 'How many bits in the tape, supported values are 5,7 and 8 (default: %(default))',
+        help = 'How many bits in the tape, supported values are 5,7 and 8 (default: %(default)s)',
         dest = 'bitcount',
         metavar = 'num'
     )
@@ -65,7 +64,7 @@ def parse_commandline():
     parser.add_argument('-li', '--lead-in',
         action = 'store',
         default = 10,
-        help = 'How many rows of lead-in should we "punch" (default: %(default))',
+        help = 'How many rows of lead-in should we "punch" (default: %(default)s)',
         dest = 'leadin',
         metavar = 'num'
     )
@@ -73,7 +72,7 @@ def parse_commandline():
     parser.add_argument('-lo', '--lead-out',
         action = 'store',
         default = 10,
-        help = 'How many rows of lead-out should we "punch" (default: %(default))',
+        help = 'How many rows of lead-out should we "punch" (default: %(default)s)',
         dest = 'leadout',
         metavar = 'num'
     )
@@ -81,7 +80,7 @@ def parse_commandline():
     parser.add_argument('-pt', '--punch-title',
         action = 'store',
         default = '',
-        help = 'When set will punch a human-readable title at the front of the tape (default: %(default))',
+        help = 'When set will punch a human-readable title at the front of the tape (default: %(default)s)',
         dest = 'punchtitle',
         metavar = 'string'
     )
@@ -90,7 +89,7 @@ def parse_commandline():
         action = 'store',
         default = True,
         type = str2bool,
-        help = 'When set will add cut-marks just outside of the page margins (default: %(default))',
+        help = 'When set will add cut-marks just outside of the page margins (default: %(default)s)',
         dest = 'cutmarks',
         metavar = 'flag'
     )
@@ -98,7 +97,7 @@ def parse_commandline():
     parser.add_argument('-tc', '--tape-color',
         action = 'store',
         default = '#ccc', #'#fff7e0',
-        help = 'How to render the paper color (default: %(default))',
+        help = 'How to render the paper color (default: %(default)s)',
         dest = 'tapecolor',
         metavar = 'html-color'
     )
@@ -106,7 +105,7 @@ def parse_commandline():
     parser.add_argument('-hc', '--hole-color',
         action = 'store',
         default = 'white',
-        help = 'How to render the hole color (default: %(default))',
+        help = 'How to render the hole color (default: %(default)s)',
         dest = 'holecolor',
         metavar = 'html-color'
     )
@@ -115,7 +114,7 @@ def parse_commandline():
         action = 'store',
         default = True,
         type = str2bool,
-        help = 'Only render holes, not space for holes. This is useful if you want to post-process the SVG (default: %(default))',
+        help = 'Only render holes, not space for holes. This is useful if you want to post-process the SVG (default: %(default)s)',
         dest = 'onlyrenderholes',
         metavar = 'flag'
     )
@@ -123,7 +122,7 @@ def parse_commandline():
     parser.add_argument('-ps', '--page-size',
         action = 'store',
         default = '',
-        help = 'When given the tape is split up into parts no bigger than the given page format (default: %(default), supports ''Tape'', ''A4'')',
+        help = 'When given the tape is split up into parts no bigger than the given page format supports ''Tape'', ''A4'', ''Letter'' and ''Legal'' (default: %(default)s)',
         dest = 'pagesize',
         metavar = 'inches'
     )
@@ -131,7 +130,7 @@ def parse_commandline():
     parser.add_argument('-ml', '--margin-left',
         action = 'store',
         default = 0.5,
-        help = 'Left margin of the page (default: %(default)) not used it page-size is ''Tape''',
+        help = 'Left margin of the page in inches (default: %(default)sin) not used it page-size is ''Tape''',
         dest = 'marginleft',
         metavar = 'inches'
     )
@@ -139,7 +138,7 @@ def parse_commandline():
     parser.add_argument('-mt', '--margin-top',
         action = 'store',
         default = 0.5,
-        help = 'Top margin of the page (default: %(default)) not used it page-size is ''Tape''',
+        help = 'Top margin of the page in inches (default: %(default)sin) not used it page-size is ''Tape''',
         dest = 'margintop',
         metavar = 'inches'
     )
@@ -147,7 +146,7 @@ def parse_commandline():
     parser.add_argument('-mr', '--margin-right',
         action = 'store',
         default = 0.5,
-        help = 'Right margin of the page (default: %(default)) not used it page-size is ''Tape''',
+        help = 'Right margin of the page in inches (default: %(default)sin) not used it page-size is ''Tape''',
         dest = 'marginright',
         metavar = 'inches'
     )
@@ -155,7 +154,7 @@ def parse_commandline():
     parser.add_argument('-mb', '--margin-bottom',
         action = 'store',
         default = 0.5,
-        help = 'Bottom margin of the page (default: %(default)) not used it page-size is ''Tape''',
+        help = 'Bottom margin of the page in inches (default: %(default)sin) not used it page-size is ''Tape''',
         dest = 'marginbottom',
         metavar = 'inches'
     )
@@ -163,7 +162,7 @@ def parse_commandline():
     parser.add_argument('-cs', '--column-space',
         action = 'store',
         default = 0.1,
-        help = 'Space between columns (default: %(default)) not used it page-size is ''Tape''',
+        help = 'Space between columns in inches (default: %(default)sin) not used it page-size is ''Tape''',
         dest = 'columnspace',
         metavar = 'inches'
     )
@@ -181,18 +180,18 @@ def parse_commandline():
         action = 'store',
         default = True,
         type = str2bool,
-        help = 'When set draw DEC decorations on the tape (default: %(default))',
+        help = 'When set draw DEC decorations on the tape (default: %(default)s)',
         dest = 'decarrows',
         metavar = 'flag'
     )
 
     parser.add_argument('-ff', '--fan-fold',
         action = 'store',
-        default = False,
-        type = str2bool,
-        help = 'When set breaks the column at fan-folds every 8.5 inches (default: %(default))',
+        default = 0.0,
+        type = float,
+        help = 'When set breaks the column at every fan-fold inches so you can tape it there (default: %(default)s)',
         dest = 'fanfold',
-        metavar = 'flag'
+        metavar = 'inches'
     )
 
     parser.add_argument('-pdf', '--pdffile-name',
@@ -230,19 +229,15 @@ def parse_commandline():
     # How much space is on the page in total?
     space = options.pagesize[1] - options.margintop - options.marginbottom
 
-    # If fan-fold requested limit the printable area to 8.5 inches.
-    if options.fanfold and space>8.5:
-        space = 8.5
+    # If fan-fold requested limit the printable area to that inches.
+    if options.fanfold and (space > options.fanfold):
+        space = options.fanfold
         options.marginbottom = options.pagesize[1] - options.margintop - space
 
     # We want this to be a integer multiple of the hole spacing of 0.1 inch
     rowspace = math.floor(space/0.1)*0.1
     options.marginbottom = options.marginbottom + (space-rowspace)
 
-    options.x = options.marginleft
-    options.y = options.margintop
-    options.rowspunched = 0
-    options.pagenumber = -1
     options.pagefilenames = []
 
     options.outputfile = None
@@ -490,17 +485,18 @@ def writeSVGDrawTape():
         finally:
             options.indent = unindent(options.indent)
 
-def nextRow():
+# Advance to the next row to punch. Some confusion here because they look like columns...
+def nextPunchRow():
 
     global options
 
     options.y += 0.1 
     
-    # Have we passed the bottom of the column?
+    # Have we passed the bottom of the tape section?
     if options.y - (options.pagesize[1] - options.marginbottom) + 0.1 > 0.01: # Epsilonitis
         
-        # Start a new column by transforming the coordinates.
-        options.x = options.x + options.tapewidth + options.columnspace
+        # Start a new tape section.
+        options.x = options.x - options.tapewidth - options.columnspace
         options.y = options.margintop
 
         # Reduce tape length by what we have already rendered: One full column.
@@ -509,10 +505,8 @@ def nextRow():
         if options.x + options.tapewidth > options.pagesize[0]:
             # New page
             closepage()
-            options.x = options.marginleft
-            newpage()
-
-        writeSVGDrawTape()
+        else:
+            writeSVGDrawTape()
 
 def writeSVGDrawByte(data):
 
@@ -523,8 +517,12 @@ def writeSVGDrawByte(data):
     # six or more bits. Hole spacing was 0.1 inch (2.54 mm) in both directions. Data holes 
     # were 0.072 inches (1.83 mm) in diameter; feed holes were 0.046 inches (1.17 mm).[4]
 
-    writeSVGComment('{data:#02x} - {data:#010b}'.format(
-        data=data
+    if not options.outputfile:
+        newpage()
+
+    writeSVGComment('{char} - {data:#04x} - {data:#010b}'.format(
+        char = chr(data) if (data >= 0x20) and (data <= 0x7e) else ' ',
+        data = data
     ))
     options.indent = indent(options.indent)
     try:
@@ -559,7 +557,7 @@ def writeSVGDrawByte(data):
         options.indent = unindent(options.indent)
     
     # Next row
-    nextRow()
+    nextPunchRow()
     options.rowspunched += 1
 
 def writeSVGDrawData():
@@ -567,6 +565,10 @@ def writeSVGDrawData():
     global options
 
     logger = logging.getLogger('main')
+    
+    if not options.outputfile:
+        newpage()
+    
     writeSVGComment('{n} bytes of data'.format(n=os.stat(options.inputfilename).st_size))
     options.indent = indent(options.indent)
     try:        
@@ -597,9 +599,20 @@ def writeSVGComment(comment):
 
     global options
 
+    logger = logging.getLogger('main')
+    logger.debug('<!-- ' + comment + ' -->')
+
+    if not options.outputfile:
+        newpage()
+
     options.outputfile.write(options.indent + '<!-- ' + comment + ' -->\n')
 
 def writeSVGDrawPunchString(string):
+
+    global options
+
+    if not options.outputfile:
+        newpage()
 
     writeSVGComment('Punch text \'' + string + '\'')
     options.indent = indent(options.indent)
@@ -637,6 +650,9 @@ def writeSVGFooter():
 
     global options
 
+    if not options.outputfile:
+        newpage()
+
     options.indent = ''
     options.outputfile.write('''</svg>''')
 
@@ -645,6 +661,11 @@ def closepage():
     global options
 
     if options.outputfile:
+        
+        # For back sides: Close mirroring group        
+        if options.reverse:
+            options.outputfile.write(options.indent + '</g>\n')
+
         writeSVGFooter()
         options.outputfile.close()
         options.outputfile = None
@@ -656,47 +677,45 @@ def newpage():
     closepage()
 
     options.pagenumber += 1
-
+    
     logger = logging.getLogger('main')
     logger.debug('Starting page #{pagenumber}.'.format(
         pagenumber = options.pagenumber + 1
     ))
 
+    # Build a file name for this page
     (basename, ext) = os.path.splitext(options.outputfilename)
+    pagefilename = basename
     if options.pagenumber > 0:
-        pagefilename = basename + '.' + str(options.pagenumber) + ext
-    else:
-        pagefilename = options.outputfilename
+        pagefilename += '.' + str(options.pagenumber) 
+    if options.reverse:
+        pagefilename += '.reverse'
+    pagefilename += ext
 
     options.pagefilenames.append(pagefilename)
 
     options.outputfile = open(pagefilename, 'w')
     options.indent = ''
     
+    options.x = options.pagesize[0] - options.marginright - options.tapewidth
+    options.y = options.margintop
+    
     writeSVGHeader()
 
-    # Frame around the entire page area
-    '''
-    options.outputfile.write(options.indent + '<rect x="{left:.3f}in" y="{top:.3f}in" width="{width:.3f}in" height="{height:.3f}in" fill="none" stroke="black" stroke-width="1px"/>\n'.format(
-            left=options.marginleft,
-            top=options.margintop,
-            width=options.pagesize[0] - options.marginleft - options.marginright,
-            height=options.pagesize[1] - options.margintop - options.marginbottom
-    ))
-    '''
+    # For back sides we need to mirror
+    if options.reverse:
+        writeSVGComment('Reverse image')
+        options.outputfile.write(options.indent + '<g transform="scale(1,-1) translate(0, {translate:.3f})">\n'.format(
+            translate = -96 * options.pagesize[1]            
+        ))
 
     writeSVGDrawTape()
 
-def main():
-  
+def createpages(reverse):
+
     global options
-    
-    parse_commandline()
-    setup_logging()
 
     logger = logging.getLogger('main')
-    logger.info('Starting. Writing to {outputfilename}.'.format(
-        outputfilename=options.outputfilename))
 
     # Size the tape in inches
     options.tapelength = options.leadin * 0.1
@@ -713,9 +732,10 @@ def main():
     # In Tape mode size page to the tape itself
     if options.pagesize[1] == 0:
         options.pagesize = (options.pagesize[0], options.tapelength)
-
-    # Create output file
-    newpage()
+    
+    options.rowspunched = 0
+    options.pagenumber = -1
+    options.reverse = reverse
 
     writeSVGComment('{n} bytes of lead-in'.format(n=options.leadin))
     options.indent = indent(options.indent)
@@ -724,7 +744,6 @@ def main():
             writeSVGDrawByte(0)    
     finally:
         options.indent = unindent(options.indent)
-        writeSVGComment('End of lead-in')
 
     if options.punchtitle:
         writeSVGDrawPunchString(options.punchtitle)
@@ -739,7 +758,6 @@ def main():
             writeSVGDrawByte(0)    
     finally:
         options.indent = unindent(options.indent)
-        writeSVGComment('End of lead-out')
 
     closepage()
     
@@ -749,31 +767,68 @@ def main():
         s = 's' if options.pagenumber > 0 else ''
     ))
 
-    if options.pdffilename:    
-        logger.info('Creating PDF in {pdffilename}.'.format(
+def convertpagestoPDF():
+
+    logger = logging.getLogger('main')
+    
+    logger.info('Creating PDF in {pdffilename}.'.format(
             pdffilename = options.pdffilename
         ))
 
-        pdfpagecount = 0
+    pdfpagecount = 0
 
-        c = canvas.Canvas(options.pdffilename)    
+    # The pagesize argument is a tuple of two numbers in points (1/72 of an inch). 
+    c = canvas.Canvas(options.pdffilename, pagesize = (options.pagesize[0] * 72, options.pagesize[1] * 72))    
 
-        for pagefilename in options.pagefilenames: 
-            drawing = svg2rlg(pagefilename)
-            renderPDF.draw(drawing, c, 0, 0)
-            c.showPage()
-            pdfpagecount += 1   
-            logger.debug('Generated page #{n}.'.format(
-                n = pdfpagecount
-            )) 
+    for pagefilename in options.pagefilenames: 
+        drawing = svg2rlg(pagefilename)
+        renderPDF.draw(drawing, c, 0, 0)
+        c.showPage()
+        pdfpagecount += 1   
+        logger.debug('Generated page #{n}.'.format(
+            n = pdfpagecount
+        )) 
+
+    c.save()
+
+    logger.info('Generated {pdfpagecount} page{s} of PDF.'.format(
+        pdfpagecount = pdfpagecount,
+        s = 's' if pdfpagecount>1 else ''
+    ))
+
+
+def main():
+  
+    global options
     
-        c.save()
+    parse_commandline()
+    setup_logging()
 
-        logger.info('Generated {pdfpagecount} page{s} of PDF.'.format(
-            pdfpagecount = pdfpagecount,
-            s = 's' if pdfpagecount>1 else ''
-        ))
+    logger = logging.getLogger('main')
+    logger.info('Starting. Writing to {outputfilename}.'.format(
+        outputfilename=options.outputfilename))
 
+    logger.debug("Pagesize is {width:.3f}in x {height:.3f}in.".format(
+        width = options.pagesize[0],
+        height = options.pagesize[1]
+    ))
+
+    logger.debug("Margins are: Left: {left:.3f}in, Top: {top:.3f}in, Right: {right:.3f}in, Bottom: {bottom:.3f}in.".format(
+        left = options.marginleft,
+        top = options.margintop,
+        right = options.marginright,
+        bottom = options.marginbottom
+    ))
+
+    logger.debug('Create front pages.')
+    createpages(False)
+
+    logger.debug('Create back pages.')
+    createpages(True) 
+
+    if options.pdffilename:
+        convertpagestoPDF()    
+        
     logger.info('Done.')
 
 if __name__ == '__main__':
