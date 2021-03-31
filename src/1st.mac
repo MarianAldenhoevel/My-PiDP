@@ -1,0 +1,19 @@
+	.LIST
+	
+	.ASECT
+	.=001000				;Org ^o1000
+
+	.TITLE TEST.MAC VERSION 1
+
+FIRST: MOV R1,1000
+	  INC R1
+	  MOV R2,1000
+	  ADD R2,R1
+      HALT
+
+	.END
+
+;Space for Stack - Stack starts at end of program
+	.BLKB 128.	
+
+	.END    START
