@@ -13,7 +13,7 @@ Find here:
 
 ## PDP-11 Programming Card
 
-The Programming Card is a quick reference for programming the machine. It includes a list of opcodes and listings for various versions of bootstrap loader code.
+The Programming Card EH-S1046-78 is a quick reference for programming the machine. It includes a list of opcodes and listings for various versions of bootstrap loader code.
 
 There are numerous scans of the original on the web. I have taken one published by Flickr-User [Endogan](https://www.flickr.com/photos/24989276@N00/albums/72157613479397758) and put it into a PDF ready for printing. My PDF is laid out for A4 paper and you can duplex-print two pages, take an exacto-knife to it, tape two parts together and fold it:
 
