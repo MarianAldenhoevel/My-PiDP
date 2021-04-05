@@ -9,6 +9,7 @@ Find here:
 
 * [PDP-11 Programming Card](#pdp-11-programming-card)
 * [Tape2SVG](#tape-to-svg)
+* [lsttosimh](#lsttosimh)
 * [License](#license)
 
 ## PDP-11 Programming Card
@@ -39,6 +40,14 @@ One nice feature is that it can also punch text to label tapes so you can create
 <img src="tape2svg/PiDP-11.4x5.png"/>
 
 <img src="tape2svg/PiDP-11.8x8.png"/>
+
+## lsttosimh
+
+When assembling bare-metal code for the machine using MACRO11 I could not find a simple way to load the result into simh. One approach is to take the listing file from the assembler and toggle in the code through the front-panel. While period-accurate I found that to be a bit too tedious for everyday use.
+
+So I wrote a primitive converter from such a LST file to a series of simh DEPOSIT commands that can be loaded into simh using DO.
+
+You can find it [here](https://github.com/MarianAldenhoevel/My-PiDP/blob/main/src/lsttosimh.py), but beware it IS primitive and extremely ad-hoc just to get me going.
 
 ## License
 
